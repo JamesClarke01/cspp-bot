@@ -127,7 +127,7 @@ def csvDownloadedChecker():
 def deleteCsvFile(file):
     "Function as an extra check because remove() is scary"
     if file[-4:] == ".csv":
-        remove(file)
+        remove(CSV_DOWNLOAD_DIR + "/" + file)
 
 def validStudentNumber(potentialNum):
     "Input validation for the student number entry"
