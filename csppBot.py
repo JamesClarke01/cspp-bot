@@ -185,7 +185,7 @@ def addNumberToVerifiedJson(studentNoInput):
 
     jsonObject = json.dumps(data, indent = 4)
 
-    f = open("previouslyVerifiedNumbers.json", "w")
+    f = open(PAST_NUMBER_JSON, "w")
     f.write(jsonObject)
     f.close()
 
