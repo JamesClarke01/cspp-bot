@@ -130,12 +130,12 @@ def csvDownloadedChecker():
     return None
 
 def deleteCsvFile(file):
-    "Function as an extra check because remove() is scary"
+    """Function as an extra check because remove() is scary"""
     if file[-4:] == ".csv":
         remove(CSV_DOWNLOAD_DIR + "/" + file)
 
 def validStudentNumber(potentialNum):
-    "Input validation for the student number entry"
+    """Input validation for the student number entry"""
     if len(potentialNum) != 9:
         return False
 
@@ -157,7 +157,7 @@ def compareEmailWithInput(email, inputNumber):
         return False
 
 def searchCsv(memberCsv, studentNoInput):
-    "Return True if number found, False if not"
+    """Return True if number found, False if not"""
     with open(memberCsv) as memberCsv:
         csvReader = csv.reader(memberCsv, delimiter=',')
 
