@@ -84,7 +84,7 @@ def bypassPage2(driver):
 
 def waitUntilLoaded(funcThatRequiresLoaded, *args):
     """Will run function passed a defined amount of time until the function returns something or the limit is succeeded"""
-    cycleWaitTime = 10000
+    cycleWaitTime = 100000
     
     for i in range(cycleWaitTime):
         funcReturnValue = funcThatRequiresLoaded(*args)
