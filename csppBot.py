@@ -14,12 +14,14 @@ from decouple import config
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+#import registeredChecker
+
 
 #GLOBAL CONSTANTS START
 
 TOKEN = config('TOKEN') #bot token
 
-# #discord ids (test server)
+# discord ids (test server)
 # VERIF_CHANNEL_ID = 962626372440838165
 # VERIF_ROLE_ID = 962706249831551006
 # UNVERIF_ROLE_ID = 962706286846287903
@@ -28,8 +30,8 @@ TOKEN = config('TOKEN') #bot token
 VERIF_CHANNEL_ID = 955995646635167744 
 VERIF_ROLE_ID = 956184586226901023 
 UNVERIF_ROLE_ID = 956184281821085746 
-JAMES_ID = 364747286699442176
 
+JAMES_ID = 364747286699442176
 
 #portal specific
 USER = config('U')
@@ -245,6 +247,13 @@ intents = discord.Intents.default()
 intents.members = True
 
 client = commands.Bot(command_prefix='+', intents=intents)
+
+
+async def mail(message):
+    james = client.get_user(JAMES_ID)
+    dm = await james.create_dm()
+    await dm.send(message)
+
 
 @client.event
 async def on_message(message):
