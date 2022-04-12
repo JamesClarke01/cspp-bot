@@ -243,13 +243,6 @@ intents.members = True
 
 client = commands.Bot(command_prefix='+', intents=intents)
 
-@client.command()
-async def mail(message):
-    james = client.get_user(JAMES_ID)
-    dm = await james.create_dm()
-    await dm.send(message)
-
-
 @client.event
 async def on_message(message):
     
