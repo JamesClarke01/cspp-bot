@@ -34,7 +34,7 @@ P = config('P')
 
 CSV_PAGE = "https://www.tudublin.ie/socsportal/admin/index.php?object=T3JnYW5pc2F0aW9uTWVtYmVy&organisationID=MTA2NQ==&actionType=cmVhZA==&action=Ng==&method=Y3N2RXhwb3J0"
 
-PAST_NUMBER_JSON = "previouslyVerifiedNumbers.json"
+PAST_NUMBER_JSON = "VerifiedNumbers.json"
 
 CSV_DOWNLOAD_DIR = os.getcwd()
 
