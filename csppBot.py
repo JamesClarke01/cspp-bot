@@ -22,14 +22,14 @@ from selenium.webdriver.common.by import By
 TOKEN = config('TOKEN') #bot token
 
 # discord ids (test server)
-# VERIF_CHANNEL_ID = 962626372440838165
-# VERIF_ROLE_ID = 962706249831551006
-# UNVERIF_ROLE_ID = 962706286846287903
+VERIF_CHANNEL_ID = 962626372440838165
+VERIF_ROLE_ID = 962706249831551006
+UNVERIF_ROLE_ID = 962706286846287903
 
 #discord IDs (main server)
-VERIF_CHANNEL_ID = 955995646635167744 
-VERIF_ROLE_ID = 956184586226901023 
-UNVERIF_ROLE_ID = 956184281821085746 
+#VERIF_CHANNEL_ID = 955995646635167744 
+#VERIF_ROLE_ID = 956184586226901023 
+#UNVERIF_ROLE_ID = 956184281821085746 
 
 JAMES_ID = 364747286699442176
 
@@ -90,7 +90,7 @@ def bypassPage2(driver):
 def waitUntilLoaded(funcThatRequiresLoaded, *args):
     """Will run function passed a defined amount of time until the function returns something or the limit is succeeded"""
     cycleWaitTime = 100000
-    
+
     for i in range(cycleWaitTime):
         funcReturnValue = funcThatRequiresLoaded(*args)
         
