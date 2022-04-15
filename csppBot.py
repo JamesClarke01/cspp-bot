@@ -43,6 +43,8 @@ PAST_NUMBER_JSON = "VerifiedNumbers.json"
 
 CSV_DOWNLOAD_DIR = os.getcwd()
 
+PORTAL_ERROR_AMOUNT = 5
+
 #GLOBAL CONSTANTS END
 
 
@@ -59,11 +61,9 @@ def setupChromeDriver():
     return driver
 
 def bypassPage1(driver):
-    try:
-        singleLoginButton = driver.find_element(By.CLASS_NAME, "btn-danger")
-    except:
-        print("Page 1 not loaded yet")
-        return False
+    
+    singleLoginButton = driver.find_element(By.CLASS_NAME, "btn-danger")
+    
 
     singleLoginButton.click()
 
@@ -71,15 +71,13 @@ def bypassPage1(driver):
 
 def bypassPage2(driver):
 
-    try:
-        emailBox = driver.find_element(By.ID, "username")
+    
+    emailBox = driver.find_element(By.ID, "username")
 
-        passwordBox = driver.find_element(By.ID,"password")
+    passwordBox = driver.find_element(By.ID,"password")
 
-        submitBox = driver.find_element(By.ID,"submitLogin")
-    except:
-        print("Page 2 not loaded yet")
-        return False
+    submitBox = driver.find_element(By.ID,"submitLogin")
+
 
     emailBox.send_keys(USER)
     passwordBox.send_keys(P)
@@ -87,12 +85,12 @@ def bypassPage2(driver):
 
     return True
 
-def waitUntilLoaded(funcThatRequiresLoaded, *args):
+def waitUntilLoaded(funcThatRequiresLoaded):
     """Will run function passed a defined amount of time until the function returns something or the limit is succeeded"""
     cycleWaitTime = 100000
     
     for i in range(cycleWaitTime):
-        funcReturnValue = funcThatRequiresLoaded(*args)
+        funcReturnValue = funcThatRequiresLoaded()
         
         if funcReturnValue != None:
             print(funcThatRequiresLoaded, "successful")
@@ -109,11 +107,11 @@ def downloadCsv():
     driver.get(CSV_PAGE) #open page
     
     #bypass page 1
-    if waitUntilLoaded(bypassPage1, driver) == None:
+    if bypassPage1(driver) == None:
         return False
 
     #bypass page 2
-    if waitUntilLoaded(bypassPage2, driver) == None:
+    if bypassPage2(driver) == None:
         return False
     
     #download csv
@@ -228,10 +226,18 @@ async def isRegistered(authorUserName, studentNoInput):
         return False
 
     #check the student is registered on the portal
-    if not registeredOnPortal(studentNoInput):
-        await mail("Yo, User: '" + authorUserName + "' entered a student number that is not on the student portal!")
-        print("Not registered on portal")
-        return False
+    for i in range(PORTAL_ERROR_AMOUNT): #will attempt it a defined amount of times
+        if i == PORTAL_ERROR_AMOUNT-1:
+            await mail("Error checking student portal")
+            return False
+
+        try:
+            if not registeredOnPortal(studentNoInput):
+                await mail("Yo, User: '" + authorUserName + "' entered a student number that is not on the student portal!")
+                print("Not registered on portal")
+                return False
+        except:
+            pass
 
     #if here, student is defintely registered
     print("Student is registered")
