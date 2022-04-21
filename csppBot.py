@@ -236,6 +236,8 @@ async def isRegistered(authorUserName, studentNoInput):
                 await mail("Yo, User: '" + authorUserName + "' entered a student number that is not on the student portal!")
                 print("Not registered on portal")
                 return False
+            else: #if registered on portal, escape the for loop
+                break
         except:
             pass
 
